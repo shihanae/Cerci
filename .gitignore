@@ -1,0 +1,6 @@
+/.mvn/
+/lib/
+/target/
+/src/main/java/com/giftery/Component/DataLoader.java
+/src/main/resources/application.properties
+/.idea/
