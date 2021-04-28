@@ -1,5 +1,6 @@
 package com.giftery;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 @SpringBootApplication
+@EnableEncryptableProperties
 public class GifteryApplication implements CommandLineRunner
 {
 

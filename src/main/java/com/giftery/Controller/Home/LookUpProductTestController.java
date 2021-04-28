@@ -1,6 +1,7 @@
 package com.giftery.Controller.Home;
 
 import com.giftery.Model.AmazonProduct;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -18,7 +19,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URLEncoder;
-
 
 @Controller
 @RequestMapping("/product-lookup")
