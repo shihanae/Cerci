@@ -19,7 +19,7 @@ public class DataLoader implements ApplicationRunner
     @Autowired
     RoleServiceImpl roleService;
 
-    private String[] roles = {"USER", "STANDARD", "PREMIUM" , "CREATOR", "CHARITY", "MODERATOR", "ADMINISTRATOR", "SUPER_ADMIN"};
+    private String[] roles = {"ROLE_USER", "ROLE_STANDARD", "ROLE_PREMIUM" , "ROLE_CREATOR", "ROLE_CHARITY", "ROLE_MODERATOR", "ROLE_ADMINISTRATOR", "ROLE_SUPER_ADMIN"};
 
     @Override
     public void run(ApplicationArguments args) throws Exception

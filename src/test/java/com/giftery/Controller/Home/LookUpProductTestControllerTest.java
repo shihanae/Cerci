@@ -19,8 +19,10 @@ import org.springframework.ui.Model;
 import javax.annotation.PostConstruct;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(LookUpProductTestController.class)
+@WebMvcTest(controllers = LookUpProductTestController.class)
 public class LookUpProductTestControllerTest
 {
     @Autowired
@@ -33,14 +35,15 @@ public class LookUpProductTestControllerTest
     CustomAuthenticationProvider customAuthenticationProvider;
 
     @Test
-    @PostConstruct
     @DisplayName("Test Should Return A Sunny Health Exercise Bike After Making a Get Request to endpoint - /product-lookup/search/?asin=[asin]")
     void shouldSarchAsinAndGetExerciseBike() throws Exception
     {
-           mockMvc.perform(MockMvcRequestBuilders.get("/product-lookup/search/")
+           mockMvc.perform(get("/product-lookup/search/")
                     .param("asin", "B07FCJH59R"))
-                    .andExpect(MockMvcResultMatchers.model()
-                            .attribute("amazonProduct", hasProperty("productTitle", containsStringIgnoringCase("SF-B1805"))));
+                    .andExpect(MockMvcResultMatchers
+                            .model()
+                            .attribute("amazonProduct", hasProperty("productTitle", containsStringIgnoringCase("SF-B1805"))))
+                            .andExpect(status().isOk());
 
     }
 }

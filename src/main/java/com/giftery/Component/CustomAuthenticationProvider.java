@@ -38,8 +38,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
 
-        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
-        String ipAddress = details.getRemoteAddress();
+        WebAuthenticationDetails details = null;
+        String ipAddress = null;
+
+        if(authentication.getDetails() != null) {
+            details = (WebAuthenticationDetails) authentication.getDetails();
+            ipAddress = details.getRemoteAddress();
+        }
 
         User user = userService.findByUsernameIgnoreCase(username);
 
