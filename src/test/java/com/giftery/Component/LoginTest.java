@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import org.springframework.web.context.WebApplicationContext;
-
+import org.springframework.security.authentication.BadCredentialsException;
 import javax.annotation.PostConstruct;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +31,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -60,16 +61,16 @@ public class LoginTest
     public void loginWithValidUserThenAuthenticated() throws Exception {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user_one", "!Texas1DERful");
         Authentication user = customAuthenticationProvider.authenticate(token);
-        assertEquals(user.isAuthenticated(), true);
+        assertTrue(user.isAuthenticated());
 
     }
 
     @Test
     public void loginWithInvalidUserThenUnauthenticated() throws Exception
     {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user_one", "!Texas1DERful");
-        Authentication user = customAuthenticationProvider.authenticate(token);
-        assertEquals(user.isAuthenticated(), true);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("invalid", "invalid");
+        Exception exception = assertThrows(BadCredentialsException.class, () -> customAuthenticationProvider.authenticate(token));
+        assertEquals("1000", exception.getMessage());
     }
 
 
