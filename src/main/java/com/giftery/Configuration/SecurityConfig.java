@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
         http.authorizeRequests()
                 .antMatchers("/home*").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/product-lookup*").permitAll()
                 .antMatchers("/error*").permitAll()
@@ -45,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+        .and()
+                .csrf().disable()
+                .headers().frameOptions().disable();
                //.logoutSuccessHandler(logoutSuccessHandler());
     }
 
