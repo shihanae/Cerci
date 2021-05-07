@@ -54,8 +54,9 @@ class UserServiceImplTest
         userService.saveUser(testUser);
 
         User user = userService.findByUsernameIgnoreCase("test-user");
-        userService.deleteById(user.getId());
+        assertNotNull(user);
 
+        userService.deleteById(user.getId());
         assertNull(userService.findByUsernameIgnoreCase("test-user"));
     }
 
@@ -65,8 +66,9 @@ class UserServiceImplTest
         User testUser = new User("test-user", "test@test.com", "password", "firstName", "lastname");
         userService.saveUser(testUser);
 
-        User user = userService.findById(testUser.getId());
-        assertNotNull(user);
+
+        assertNotNull(userService.findById(testUser.getId()));
+        assertNull(userService.findById(-1));
     }
 
 
@@ -77,8 +79,8 @@ class UserServiceImplTest
         User testUser = new User("test-user", "user@test.com", "password", "firstName", "lastname");
         userService.saveUser(testUser);
 
-        User user = userService.findByEmailIgnoreCase("user@test.com");
-        assertNotNull(user);
+        assertNotNull(userService.findByEmailIgnoreCase("user@test.com"));
+        assertNull(userService.findByEmailIgnoreCase("invalid@invalid.com"));
     }
 
     @Test

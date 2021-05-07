@@ -32,6 +32,7 @@ class RoleServiceImplTest
     public void findByNameIgnoreCaseTest()
     {
         assertNotNull(roleService.findByNameIgnoreCase("ROLE_PREMIUM"));
+        assertNull(roleService.findByNameIgnoreCase("INVALID"));
     }
 
     @Test
@@ -39,9 +40,10 @@ class RoleServiceImplTest
     {
         Role testRole = new Role("ROLE_TEST");
         roleService.saveRole(testRole);
-
         Role role = roleService.findById(testRole.getId());
+
         assertNotNull(role);
+        assertNull(roleService.findById(-1));
     }
 
     @Test
@@ -51,6 +53,8 @@ class RoleServiceImplTest
         roleService.saveRole(testRole);
 
         Role role = roleService.findByNameIgnoreCase("ROLE_TEST");
+        assertNotNull(role);
+
         roleService.deleteById(role.getId());
         assertNull(roleService.findByNameIgnoreCase("ROLE_TEST"));
     }
